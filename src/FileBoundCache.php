@@ -1,23 +1,19 @@
 <?php
 
+declare(strict_types=1);
 
 namespace TheCodingMachine\CacheUtils;
 
-
-use function filemtime;
 use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\InvalidArgumentException;
+use function filemtime;
 use function str_replace;
-use TheCodingMachine\CacheUtils\FileAccessException;
 
 class FileBoundCache implements FileBoundCacheInterface
 {
-    /**
-     * @var CacheInterface
-     */
+    /** @var CacheInterface */
     private $cache;
-    /**
-     * @var string
-     */
+    /** @var string */
     private $cachePrefix;
 
     /**
@@ -33,14 +29,15 @@ class FileBoundCache implements FileBoundCacheInterface
     /**
      * Fetches an element from the cache by key.
      *
-     * @param string $key
      * @param mixed $default
+     *
      * @return mixed
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     *
+     * @throws InvalidArgumentException
      */
     public function get(string $key, $default = null)
     {
-        $item = $this->cache->get($this->cachePrefix.str_replace(['\\', '{', '}', '(', ')', '/', '@', ':'], '_', $key));
+        $item = $this->cache->get($this->cachePrefix . str_replace(['\\', '{', '}', '(', ')', '/', '@', ':'], '_', $key));
         if ($item !== null) {
             [
                 'files' => $files,
@@ -55,7 +52,7 @@ class FileBoundCache implements FileBoundCacheInterface
                 }
             }
 
-            if (!$expired) {
+            if (! $expired) {
                 return $data;
             }
         }
@@ -66,7 +63,6 @@ class FileBoundCache implements FileBoundCacheInterface
     /**
      * Stores an item in the cache.
      *
-     * @param string $key
      * @param mixed $item The item must be serializable.
      * @param array<int, string> $fileNames If one of these files is touched, the cache item is invalidated.
      */
@@ -81,7 +77,7 @@ class FileBoundCache implements FileBoundCacheInterface
             $files[$fileName] = $fileMTime;
         }
 
-        $this->cache->set($this->cachePrefix.str_replace(['\\', '{', '}', '(', ')', '/', '@', ':'], '_', $key), [
+        $this->cache->set($this->cachePrefix . str_replace(['\\', '{', '}', '(', ')', '/', '@', ':'], '_', $key), [
             'files' => $files,
             'data' => $item,
         ], $ttl);

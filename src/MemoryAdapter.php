@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace TheCodingMachine\CacheUtils;
 
@@ -8,13 +9,9 @@ namespace TheCodingMachine\CacheUtils;
  */
 class MemoryAdapter implements FileBoundCacheInterface
 {
-    /**
-     * @var array<string, mixed>
-     */
+    /** @var array<string, mixed> */
     private $items;
-    /**
-     * @var FileBoundCacheInterface
-     */
+    /** @var FileBoundCacheInterface */
     private $fileBoundCache;
 
     public function __construct(FileBoundCacheInterface $fileBoundCache)
@@ -25,7 +22,6 @@ class MemoryAdapter implements FileBoundCacheInterface
     /**
      * Fetches an element from the cache by key.
      *
-     * @param string $key
      * @return mixed
      */
     public function get(string $key)
@@ -40,7 +36,6 @@ class MemoryAdapter implements FileBoundCacheInterface
     /**
      * Stores an item in the cache.
      *
-     * @param string $key
      * @param mixed $item The item must be serializable.
      * @param array<int, string> $fileNames If one of these files is touched, the cache item is invalidated.
      */

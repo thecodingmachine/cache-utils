@@ -1,10 +1,10 @@
-[![Latest Stable Version](https://poser.pugx.org/thecodingmachine/cache_utils/v/stable)](https://packagist.org/packages/thecodingmachine/cache_utils)
-[![Total Downloads](https://poser.pugx.org/thecodingmachine/cache_utils/downloads)](https://packagist.org/packages/thecodingmachine/cache_utils)
-[![Latest Unstable Version](https://poser.pugx.org/thecodingmachine/cache_utils/v/unstable)](https://packagist.org/packages/thecodingmachine/cache_utils)
-[![License](https://poser.pugx.org/thecodingmachine/cache_utils/license)](https://packagist.org/packages/thecodingmachine/cache_utils)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thecodingmachine/cache_utils/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/thecodingmachine/cache_utils/?branch=master)
-[![Build Status](https://travis-ci.org/thecodingmachine/cache_utils.svg?branch=master)](https://travis-ci.org/thecodingmachine/cache_utils)
-[![Coverage Status](https://coveralls.io/repos/thecodingmachine/cache_utils/badge.svg?branch=master&service=github)](https://coveralls.io/github/thecodingmachine/cache_utils?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/thecodingmachine/cache-utils/v/stable)](https://packagist.org/packages/thecodingmachine/cache-utils)
+[![Total Downloads](https://poser.pugx.org/thecodingmachine/cache-utils/downloads)](https://packagist.org/packages/thecodingmachine/cache-utils)
+[![Latest Unstable Version](https://poser.pugx.org/thecodingmachine/cache-utils/v/unstable)](https://packagist.org/packages/thecodingmachine/cache-utils)
+[![License](https://poser.pugx.org/thecodingmachine/cache-utils/license)](https://packagist.org/packages/thecodingmachine/cache-utils)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thecodingmachine/cache-utils/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/thecodingmachine/cache-utils/?branch=master)
+[![Build Status](https://travis-ci.org/thecodingmachine/cache-utils.svg?branch=master)](https://travis-ci.org/thecodingmachine/cache-utils)
+[![Coverage Status](https://coveralls.io/repos/thecodingmachine/cache-utils/badge.svg?branch=master&service=github)](https://coveralls.io/github/thecodingmachine/cache-utils?branch=master)
 
 ## Why?
 
@@ -18,7 +18,7 @@ If you are developing a PHP framework or a PHP analysis library that relies a lo
 to have cache items that are related to PHP files or PHP classes.
 
 For instance, Doctrine Annotations in a class do not change unless the class file(s) is changed. Therefore, it makes
-sense to bind the cache invalidation to the modification date of the file. *thecodingmachine/cache_utils* provides just that.
+sense to bind the cache invalidation to the modification date of the file. *thecodingmachine/cache-utils* provides just that.
 
 ```php
 namespace TheCodingMachine\CacheUtils\FileBoundCache;

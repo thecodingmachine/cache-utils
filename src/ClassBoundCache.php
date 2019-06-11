@@ -1,29 +1,21 @@
 <?php
 
+declare(strict_types=1);
 
 namespace TheCodingMachine\CacheUtils;
 
-
-use function array_merge;
 use ReflectionClass;
+use function array_merge;
 
 class ClassBoundCache implements ClassBoundCacheInterface
 {
-    /**
-     * @var FileBoundCacheInterface
-     */
+    /** @var FileBoundCacheInterface */
     private $fileBoundCache;
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $analyzeParentClasses;
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $analyzeTraits;
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $analyzeInterfaces;
 
     public function __construct(FileBoundCacheInterface $fileBoundCache, bool $analyzeParentClasses = true, bool $analyzeTraits = true, bool $analyzeInterfaces = false)
@@ -57,6 +49,9 @@ class ClassBoundCache implements ClassBoundCacheInterface
         $this->fileBoundCache->set($key, $item, $files, $ttl);
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function getFilesForClass(ReflectionClass $refClass): array
     {
         $files = [];

@@ -21,7 +21,7 @@ For instance, Doctrine Annotations in a class do not change unless the class fil
 sense to bind the cache invalidation to the modification date of the file. *thecodingmachine/cache-utils* provides just that.
 
 ```php
-namespace TheCodingMachine\CacheUtils\FileBoundCache;
+use TheCodingMachine\CacheUtils\FileBoundCache;
 
 $fileBoundCache = new FileBoundCache($psr16Cache);
 
@@ -40,8 +40,42 @@ $myDataToCache = $fileBoundCache->get('cache_key');
 You can also use the `MemoryAdapter` to store the cache in memory for even faster access in the same query.
 
 ```php
-namespace TheCodingMachine\CacheUtils\FileBoundCache;
-namespace TheCodingMachine\CacheUtils\MemoryAdapter;
+use TheCodingMachine\CacheUtils\FileBoundCache;
+use TheCodingMachine\CacheUtils\MemoryAdapter;
 
 $fileBoundCache = new MemoryAdapter(new FileBoundCache($psr16Cache));
 ```
+
+### Class bound cache
+
+You can also bind a cache item to a class / trait / interface using the `ClassBoundCache` class.
+The cache will expire if the class / trait / interface is modified.
+
+```php
+use TheCodingMachine\CacheUtils\FileBoundCache;
+use TheCodingMachine\CacheUtils\ClassBoundCache;
+
+$fileBoundCache = new FileBoundCache($psr16Cache);
+$classBoundCache = new ClassBoundCache($fileBoundCache);
+
+// Put the $myDataToCache object in cache.
+// If the FooBar class is modified, the cache item is purged.
+$classBoundCache->set('cache_key', $myDataToCache, FooBar::class);
+
+// Fetching data
+$myDataToCache = $classBoundCache->get('cache_key');
+```
+
+The `ClassBoundCache` constructor accepts 3 additional parameters:
+
+```php
+
+class ClassBoundCache implements ClassBoundCacheInterface
+{
+    public function __construct(FileBoundCacheInterface $fileBoundCache, bool $analyzeParentClasses = true, bool $analyzeTraits = true, bool $analyzeInterfaces = false)
+}
+```
+
+- `$analyzeParentClasses`: if set to true, the cache will be invalidated if one of the parent classes is modified
+- `$analyzeTraits`: if set to true, the cache will be invalidated if one of the traits is modified
+- `$analyzeInterfaces`: if set to true, the cache will be invalidated if one of the interfaces implemented is modified

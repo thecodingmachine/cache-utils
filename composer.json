@@ -1,5 +1,5 @@
 {
-    "name": "thecodingmachine/cache_utils",
+    "name": "thecodingmachine/cache-utils",
     "description": "Store file related cache items easily",
     "license": "MIT",
     "type": "library",

@@ -21,6 +21,8 @@ For instance, Doctrine Annotations in a class do not change unless the class fil
 sense to bind the cache invalidation to the modification date of the file. *thecodingmachine/cache_utils* provides just that.
 
 ```php
+namespace TheCodingMachine\CacheUtils\FileBoundCache;
+
 $fileBoundCache = new FileBoundCache($psr16Cache);
 
 // Put the $myDataToCache object in cache.
@@ -38,5 +40,8 @@ $myDataToCache = $fileBoundCache->get('cache_key');
 You can also use the `MemoryAdapter` to store the cache in memory for even faster access in the same query.
 
 ```php
+namespace TheCodingMachine\CacheUtils\FileBoundCache;
+namespace TheCodingMachine\CacheUtils\MemoryAdapter;
+
 $fileBoundCache = new MemoryAdapter(new FileBoundCache($psr16Cache));
 ```

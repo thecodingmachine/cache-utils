@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace TheCodingMachine\CacheUtils;
 
+use ReflectionClass;
+
 /**
  * An adapter around a FileBoundCacheInterface that stores values in memory for the current request (for maximum performance)
  */
-class MemoryAdapter implements FileBoundCacheInterface
+class ClassBoundMemoryAdapter implements ClassBoundCacheInterface
 {
     /** @var array<string, mixed> */
     private $items;
-    /** @var FileBoundCacheInterface */
-    private $fileBoundCache;
+    /** @var ClassBoundCacheInterface */
+    private $classBoundCache;
 
-    public function __construct(FileBoundCacheInterface $fileBoundCache)
+    public function __construct(ClassBoundCacheInterface $classBoundCache)
     {
-        $this->fileBoundCache = $fileBoundCache;
+        $this->classBoundCache = $classBoundCache;
     }
 
     /**
@@ -30,18 +32,18 @@ class MemoryAdapter implements FileBoundCacheInterface
             return $this->items[$key];
         }
 
-        return $this->items[$key] = $this->fileBoundCache->get($key);
+        return $this->items[$key] = $this->classBoundCache->get($key);
     }
 
     /**
      * Stores an item in the cache.
      *
      * @param mixed $item The item must be serializable.
-     * @param array<int, string> $fileNames If one of these files is touched, the cache item is invalidated.
+     * @param ReflectionClass $refClass If the class is modified, the cache item is invalidated.
      */
-    public function set(string $key, $item, array $fileNames, ?int $ttl = null): void
+    public function set(string $key, $item, ReflectionClass $refClass, ?int $ttl = null): void
     {
         $this->items[$key] = $item;
-        $this->fileBoundCache->set($key, $item, $fileNames, $ttl);
+        $this->classBoundCache->set($key, $item, $refClass, $ttl);
     }
 }

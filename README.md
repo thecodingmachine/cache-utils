@@ -37,13 +37,13 @@ $fileBoundCache->set('cache_key', $myDataToCache,
 $myDataToCache = $fileBoundCache->get('cache_key');
 ```
 
-You can also use the `MemoryAdapter` to store the cache in memory for even faster access in the same query.
+You can also use the `FileBoundMemoryAdapter` to store the cache in memory for even faster access in the same query.
 
 ```php
 use TheCodingMachine\CacheUtils\FileBoundCache;
-use TheCodingMachine\CacheUtils\MemoryAdapter;
+use TheCodingMachine\CacheUtils\FileBoundMemoryAdapter;
 
-$fileBoundCache = new MemoryAdapter(new FileBoundCache($psr16Cache));
+$fileBoundCache = new FileBoundMemoryAdapter(new FileBoundCache($psr16Cache));
 ```
 
 ### Class bound cache
@@ -79,3 +79,12 @@ class ClassBoundCache implements ClassBoundCacheInterface
 - `$analyzeParentClasses`: if set to true, the cache will be invalidated if one of the parent classes is modified
 - `$analyzeTraits`: if set to true, the cache will be invalidated if one of the traits is modified
 - `$analyzeInterfaces`: if set to true, the cache will be invalidated if one of the interfaces implemented is modified
+
+You can also use the `ClassBoundMemoryAdapter` to store the cache in memory for even faster access in the same query.
+
+```php
+use TheCodingMachine\CacheUtils\ClassBoundCache;
+use TheCodingMachine\CacheUtils\ClassBoundMemoryAdapter;
+
+$classBoundCache = new ClassBoundMemoryAdapter(new ClassBoundCache($psr16Cache));
+```

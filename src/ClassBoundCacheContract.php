@@ -21,7 +21,7 @@ class ClassBoundCacheContract implements ClassBoundCacheContractInterface
      *
      * @return mixed
      */
-    public function get(ReflectionClass $reflectionClass, callable $resolver, string $key = '')
+    public function get(ReflectionClass $reflectionClass, callable $resolver, string $key = '', ?int $ttl = null)
     {
         $cacheKey = $reflectionClass->getName() . '__' . $key;
         $item = $this->classBoundCache->get($cacheKey);
@@ -31,7 +31,7 @@ class ClassBoundCacheContract implements ClassBoundCacheContractInterface
 
         $item = $resolver();
 
-        $this->classBoundCache->set($cacheKey, $item, $reflectionClass);
+        $this->classBoundCache->set($cacheKey, $item, $reflectionClass, $ttl);
 
         return $item;
     }

@@ -13,5 +13,5 @@ interface ClassBoundCacheContractInterface
      *
      * @return mixed
      */
-    public function get(ReflectionClass $reflectionClass, callable $resolver, string $key = '');
+    public function get(ReflectionClass $reflectionClass, callable $resolver, string $key = '', ?int $ttl = null);
 }

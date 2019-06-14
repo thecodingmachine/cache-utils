@@ -105,7 +105,7 @@ $classBoundCacheContract = new ClassBoundCacheContract(new ClassBoundCache($file
 
 // Put the $myDataToCache object in cache.
 // If the FooBar class is modified, the cache item is purged.
-$classBoundCache->get(new ReflectionClass(FooBar::class), function() {
+$item = $classBoundCache->get(new ReflectionClass(FooBar::class), function() {
     // let's return the item to be cached.
     // this function is called only if the item is not in cache yet.
 });

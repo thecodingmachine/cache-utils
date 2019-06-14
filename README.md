@@ -60,7 +60,7 @@ $classBoundCache = new ClassBoundCache($fileBoundCache);
 
 // Put the $myDataToCache object in cache.
 // If the FooBar class is modified, the cache item is purged.
-$classBoundCache->set('cache_key', $myDataToCache, FooBar::class);
+$classBoundCache->set('cache_key', $myDataToCache, new ReflectionClass(FooBar::class));
 
 // Fetching data
 $myDataToCache = $classBoundCache->get('cache_key');
@@ -88,3 +88,28 @@ use TheCodingMachine\CacheUtils\ClassBoundMemoryAdapter;
 
 $classBoundCache = new ClassBoundMemoryAdapter(new ClassBoundCache($psr16Cache));
 ```
+
+### Easier interface with cache contracts
+
+You can even get an easier to use class bound cache using the `ClassBoundCacheContract`.
+
+```php
+use TheCodingMachine\CacheUtils\FileBoundCache;
+use TheCodingMachine\CacheUtils\ClassBoundCache;
+use TheCodingMachine\CacheUtils\ClassBoundMemoryAdapter;
+use TheCodingMachine\CacheUtils\ClassBoundCacheContract;
+
+$fileBoundCache = new FileBoundCache($psr16Cache);
+$classBoundCache = new ClassBoundMemoryAdapter(new ClassBoundCache($psr16Cache));
+$classBoundCacheContract = new ClassBoundCacheContract(new ClassBoundCache($fileBoundCache));
+
+// Put the $myDataToCache object in cache.
+// If the FooBar class is modified, the cache item is purged.
+$classBoundCache->get(new ReflectionClass(FooBar::class), function() {
+    // let's return the item to be cached.
+    // this function is called only if the item is not in cache yet.
+});
+```
+
+With cache contracts, there is not setters. Only a getter that takes in parameter a callable that will resolve the 
+cache item if the item is not available in the cache.

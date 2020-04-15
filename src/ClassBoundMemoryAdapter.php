@@ -39,7 +39,7 @@ class ClassBoundMemoryAdapter implements ClassBoundCacheInterface
      * Stores an item in the cache.
      *
      * @param mixed $item The item must be serializable.
-     * @param ReflectionClass $refClass If the class is modified, the cache item is invalidated.
+     * @param ReflectionClass<object> $refClass If the class is modified, the cache item is invalidated.
      */
     public function set(string $key, $item, ReflectionClass $refClass, ?int $ttl = null): void
     {

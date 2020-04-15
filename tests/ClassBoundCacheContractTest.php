@@ -2,6 +2,7 @@
 
 namespace TheCodingMachine\CacheUtils;
 
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use function clearstatcache;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -12,9 +13,9 @@ use function touch;
 
 class ClassBoundCacheContractTest extends TestCase
 {
-    public function testClassBoundCacheContract()
+    public function testClassBoundCacheContract(): void
     {
-        $cache = new ArrayCache();
+        $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');
         $classBoundCache = new ClassBoundCache($fileBoundCache, true, true, true);
         $classBoundCacheContract = new ClassBoundCacheContract($classBoundCache);

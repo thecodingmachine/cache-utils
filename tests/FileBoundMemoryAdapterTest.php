@@ -2,6 +2,7 @@
 
 namespace TheCodingMachine\CacheUtils;
 
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use function clearstatcache;
 use function file_get_contents;
 use function file_put_contents;
@@ -14,9 +15,9 @@ use function touch;
 
 class FileBoundMemoryAdapterTest extends TestCase
 {
-    public function testMemory()
+    public function testMemory(): void
     {
-        $cache = new ArrayCache();
+        $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');
         $adapter = new FileBoundMemoryAdapter($fileBoundCache);
 

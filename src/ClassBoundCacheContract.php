@@ -17,6 +17,7 @@ class ClassBoundCacheContract implements ClassBoundCacheContractInterface
     }
 
     /**
+     * @param ReflectionClass<object> $reflectionClass
      * @param string $key An optional key to differentiate between cache items attached to the same class.
      *
      * @return mixed

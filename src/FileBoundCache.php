@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace TheCodingMachine\CacheUtils;
 
-use Psr\SimpleCache\CacheInterface;
-use Psr\SimpleCache\InvalidArgumentException;
+use Psr\Cache\CacheItemPoolInterface;
+use Psr\Cache\InvalidArgumentException;
 use function filemtime;
 use function str_replace;
 
 class FileBoundCache implements FileBoundCacheInterface
 {
-    /** @var CacheInterface */
+    /** @var CacheItemPoolInterface */
     private $cache;
     /** @var string */
     private $cachePrefix;
 
     /**
-     * @param CacheInterface $cache The underlying cache system.
+     * @param CacheItemPoolInterface $cache The underlying PSR-6 cache system.
      * @param string $cachePrefix The prefix to add to the cache.
      */
-    public function __construct(CacheInterface $cache, string $cachePrefix = '')
+    public function __construct(CacheItemPoolInterface $cache, string $cachePrefix = '')
     {
         $this->cache = $cache;
         $this->cachePrefix = str_replace(['\\', '{', '}', '(', ')', '/', '@', ':'], '_', $cachePrefix);
@@ -37,12 +37,12 @@ class FileBoundCache implements FileBoundCacheInterface
      */
     public function get(string $key, $default = null)
     {
-        $item = $this->cache->get($this->cachePrefix . str_replace(['\\', '{', '}', '(', ')', '/', '@', ':'], '_', $key));
-        if ($item !== null) {
+        $item = $this->cache->getItem($this->cachePrefix . str_replace(['\\', '{', '}', '(', ')', '/', '@', ':'], '_', $key));
+        if ($item->isHit()) {
             [
                 'files' => $files,
                 'data' => $data,
-            ] = $item;
+            ] = $item->get();
 
             $expired = false;
             foreach ($files as $fileName => $fileMTime) {
@@ -74,12 +74,16 @@ class FileBoundCache implements FileBoundCacheInterface
             if ($fileMTime === false) {
                 throw FileAccessException::cannotAccessFileModificationTime($fileName);
             }
+
             $files[$fileName] = $fileMTime;
         }
 
-        $this->cache->set($this->cachePrefix . str_replace(['\\', '{', '}', '(', ')', '/', '@', ':'], '_', $key), [
+        $cacheItem = $this->cache->getItem($this->cachePrefix . str_replace(['\\', '{', '}', '(', ')', '/', '@', ':'], '_', $key));
+        $cacheItem->set([
             'files' => $files,
             'data' => $item,
-        ], $ttl);
+        ]);
+        $cacheItem->expiresAfter($ttl);
+        $this->cache->save($cacheItem);
     }
 }

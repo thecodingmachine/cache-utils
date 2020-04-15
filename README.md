@@ -8,7 +8,7 @@
 
 ## Why?
 
-This package contains a number of utility classes to play with PSR-16 caches.
+This package contains a number of utility classes to play with PSR-6 caches.
 
 ### File bound cache
 
@@ -23,7 +23,7 @@ sense to bind the cache invalidation to the modification date of the file. *thec
 ```php
 use TheCodingMachine\CacheUtils\FileBoundCache;
 
-$fileBoundCache = new FileBoundCache($psr16Cache);
+$fileBoundCache = new FileBoundCache($psr6Cache);
 
 // Put the $myDataToCache object in cache.
 // If 'FooBar.php' and 'FooBaz.php' are modified, the cache item is purged.
@@ -43,7 +43,7 @@ You can also use the `FileBoundMemoryAdapter` to store the cache in memory for e
 use TheCodingMachine\CacheUtils\FileBoundCache;
 use TheCodingMachine\CacheUtils\FileBoundMemoryAdapter;
 
-$fileBoundCache = new FileBoundMemoryAdapter(new FileBoundCache($psr16Cache));
+$fileBoundCache = new FileBoundMemoryAdapter(new FileBoundCache($psr6Cache));
 ```
 
 ### Class bound cache
@@ -55,7 +55,7 @@ The cache will expire if the class / trait / interface is modified.
 use TheCodingMachine\CacheUtils\FileBoundCache;
 use TheCodingMachine\CacheUtils\ClassBoundCache;
 
-$fileBoundCache = new FileBoundCache($psr16Cache);
+$fileBoundCache = new FileBoundCache($psr6Cache);
 $classBoundCache = new ClassBoundCache($fileBoundCache);
 
 // Put the $myDataToCache object in cache.
@@ -86,7 +86,7 @@ You can also use the `ClassBoundMemoryAdapter` to store the cache in memory for 
 use TheCodingMachine\CacheUtils\ClassBoundCache;
 use TheCodingMachine\CacheUtils\ClassBoundMemoryAdapter;
 
-$classBoundCache = new ClassBoundMemoryAdapter(new ClassBoundCache($psr16Cache));
+$classBoundCache = new ClassBoundMemoryAdapter(new ClassBoundCache($psr6Cache));
 ```
 
 ### Easier interface with cache contracts
@@ -99,8 +99,8 @@ use TheCodingMachine\CacheUtils\ClassBoundCache;
 use TheCodingMachine\CacheUtils\ClassBoundMemoryAdapter;
 use TheCodingMachine\CacheUtils\ClassBoundCacheContract;
 
-$fileBoundCache = new FileBoundCache($psr16Cache);
-$classBoundCache = new ClassBoundMemoryAdapter(new ClassBoundCache($psr16Cache));
+$fileBoundCache = new FileBoundCache($psr6Cache);
+$classBoundCache = new ClassBoundMemoryAdapter(new ClassBoundCache($psr6Cache));
 $classBoundCacheContract = new ClassBoundCacheContract(new ClassBoundCache($fileBoundCache));
 
 // If the FooBar class is modified, the cache item is purged.

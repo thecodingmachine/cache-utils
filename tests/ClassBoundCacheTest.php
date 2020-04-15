@@ -2,6 +2,7 @@
 
 namespace TheCodingMachine\CacheUtils;
 
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use function clearstatcache;
 use function file_get_contents;
 use function file_put_contents;
@@ -22,9 +23,9 @@ class ClassBoundCacheTest extends TestCase
     /**
      * @dataProvider touchFile
      */
-    public function testClassBoundCache($classToTouch)
+    public function testClassBoundCache($classToTouch): void
     {
-        $cache = new ArrayCache();
+        $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');
         $classBoundCache = new ClassBoundCache($fileBoundCache, true, true, true);
 

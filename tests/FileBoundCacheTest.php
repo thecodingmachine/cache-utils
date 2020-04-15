@@ -2,6 +2,7 @@
 
 namespace TheCodingMachine\CacheUtils;
 
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use function clearstatcache;
 use function file_get_contents;
 use function file_put_contents;
@@ -13,9 +14,9 @@ use function touch;
 
 class FileBoundCacheTest extends TestCase
 {
-    public function testFileBoundCache()
+    public function testFileBoundCache(): void
     {
-        $cache = new ArrayCache();
+        $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');
 
         $tmpPath = sys_get_temp_dir().'/tmpCacheTest';
@@ -34,9 +35,9 @@ class FileBoundCacheTest extends TestCase
         $this->assertNull($fileBoundCache->get('foo'));
     }
 
-    public function testException()
+    public function testException(): void
     {
-        $cache = new ArrayCache();
+        $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');
 
         $this->expectException(FileAccessException::class);

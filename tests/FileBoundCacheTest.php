@@ -14,7 +14,7 @@ use function touch;
 
 class FileBoundCacheTest extends TestCase
 {
-    public function testFileBoundCache()
+    public function testFileBoundCache(): void
     {
         $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');
@@ -35,7 +35,7 @@ class FileBoundCacheTest extends TestCase
         $this->assertNull($fileBoundCache->get('foo'));
     }
 
-    public function testException()
+    public function testException(): void
     {
         $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');

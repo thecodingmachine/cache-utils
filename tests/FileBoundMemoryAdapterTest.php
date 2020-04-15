@@ -15,7 +15,7 @@ use function touch;
 
 class FileBoundMemoryAdapterTest extends TestCase
 {
-    public function testMemory()
+    public function testMemory(): void
     {
         $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');

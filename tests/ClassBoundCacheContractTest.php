@@ -13,7 +13,7 @@ use function touch;
 
 class ClassBoundCacheContractTest extends TestCase
 {
-    public function testClassBoundCacheContract()
+    public function testClassBoundCacheContract(): void
     {
         $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');

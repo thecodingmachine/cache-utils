@@ -23,7 +23,7 @@ class ClassBoundCacheTest extends TestCase
     /**
      * @dataProvider touchFile
      */
-    public function testClassBoundCache($classToTouch)
+    public function testClassBoundCache($classToTouch): void
     {
         $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');

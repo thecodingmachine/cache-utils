@@ -12,8 +12,9 @@ use ReflectionClass;
 class ClassBoundMemoryAdapter implements ClassBoundCacheInterface
 {
     /** @var array<string, mixed> */
-    private array $items;
-    private ClassBoundCacheInterface $classBoundCache;
+    private $items;
+    /** @var ClassBoundCacheInterface */
+    private $classBoundCache;
 
     public function __construct(ClassBoundCacheInterface $classBoundCache)
     {

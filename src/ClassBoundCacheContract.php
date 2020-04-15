@@ -8,7 +8,8 @@ use ReflectionClass;
 
 class ClassBoundCacheContract implements ClassBoundCacheContractInterface
 {
-    private ClassBoundCacheInterface $classBoundCache;
+    /** @var ClassBoundCacheInterface */
+    private $classBoundCache;
 
     public function __construct(ClassBoundCacheInterface $classBoundCache)
     {

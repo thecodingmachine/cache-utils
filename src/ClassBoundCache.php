@@ -9,10 +9,14 @@ use function array_merge;
 
 class ClassBoundCache implements ClassBoundCacheInterface
 {
-    private FileBoundCacheInterface $fileBoundCache;
-    private bool $analyzeParentClasses;
-    private bool $analyzeTraits;
-    private bool $analyzeInterfaces;
+    /** @var FileBoundCacheInterface */
+    private $fileBoundCache;
+    /** @var bool */
+    private $analyzeParentClasses;
+    /** @var bool */
+    private $analyzeTraits;
+    /** @var bool */
+    private $analyzeInterfaces;
 
     public function __construct(FileBoundCacheInterface $fileBoundCache, bool $analyzeParentClasses = true, bool $analyzeTraits = true, bool $analyzeInterfaces = false)
     {

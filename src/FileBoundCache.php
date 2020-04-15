@@ -11,8 +11,10 @@ use function str_replace;
 
 class FileBoundCache implements FileBoundCacheInterface
 {
-    private CacheItemPoolInterface $cache;
-    private string $cachePrefix;
+    /** @var CacheInterface */
+    private $cache;
+    /** @var string */
+    private $cachePrefix;
 
     /**
      * @param CacheItemPoolInterface $cache The underlying PSR-6 cache system.

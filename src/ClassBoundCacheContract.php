@@ -8,8 +8,7 @@ use ReflectionClass;
 
 class ClassBoundCacheContract implements ClassBoundCacheContractInterface
 {
-    /** @var ClassBoundCacheInterface */
-    private $classBoundCache;
+    private ClassBoundCacheInterface $classBoundCache;
 
     public function __construct(ClassBoundCacheInterface $classBoundCache)
     {
@@ -17,6 +16,7 @@ class ClassBoundCacheContract implements ClassBoundCacheContractInterface
     }
 
     /**
+     * @param ReflectionClass<object> $reflectionClass
      * @param string $key An optional key to differentiate between cache items attached to the same class.
      *
      * @return mixed

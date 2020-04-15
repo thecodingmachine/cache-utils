@@ -9,14 +9,10 @@ use function array_merge;
 
 class ClassBoundCache implements ClassBoundCacheInterface
 {
-    /** @var FileBoundCacheInterface */
-    private $fileBoundCache;
-    /** @var bool */
-    private $analyzeParentClasses;
-    /** @var bool */
-    private $analyzeTraits;
-    /** @var bool */
-    private $analyzeInterfaces;
+    private FileBoundCacheInterface $fileBoundCache;
+    private bool $analyzeParentClasses;
+    private bool $analyzeTraits;
+    private bool $analyzeInterfaces;
 
     public function __construct(FileBoundCacheInterface $fileBoundCache, bool $analyzeParentClasses = true, bool $analyzeTraits = true, bool $analyzeInterfaces = false)
     {
@@ -40,7 +36,7 @@ class ClassBoundCache implements ClassBoundCacheInterface
      * Stores an item in the cache.
      *
      * @param mixed $item The item must be serializable.
-     * @param ReflectionClass $refClass If the class is modified, the cache item is invalidated.
+     * @param ReflectionClass<object> $refClass If the class is modified, the cache item is invalidated.
      */
     public function set(string $key, $item, ReflectionClass $refClass, ?int $ttl = null): void
     {
@@ -50,6 +46,8 @@ class ClassBoundCache implements ClassBoundCacheInterface
     }
 
     /**
+     * @param ReflectionClass<object> $refClass
+     *
      * @return array<int, string>
      */
     private function getFilesForClass(ReflectionClass $refClass): array

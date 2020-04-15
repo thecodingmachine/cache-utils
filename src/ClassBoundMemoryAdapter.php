@@ -12,9 +12,8 @@ use ReflectionClass;
 class ClassBoundMemoryAdapter implements ClassBoundCacheInterface
 {
     /** @var array<string, mixed> */
-    private $items;
-    /** @var ClassBoundCacheInterface */
-    private $classBoundCache;
+    private array $items;
+    private ClassBoundCacheInterface $classBoundCache;
 
     public function __construct(ClassBoundCacheInterface $classBoundCache)
     {
@@ -39,7 +38,7 @@ class ClassBoundMemoryAdapter implements ClassBoundCacheInterface
      * Stores an item in the cache.
      *
      * @param mixed $item The item must be serializable.
-     * @param ReflectionClass $refClass If the class is modified, the cache item is invalidated.
+     * @param ReflectionClass<object> $refClass If the class is modified, the cache item is invalidated.
      */
     public function set(string $key, $item, ReflectionClass $refClass, ?int $ttl = null): void
     {

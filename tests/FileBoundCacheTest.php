@@ -2,6 +2,7 @@
 
 namespace TheCodingMachine\CacheUtils;
 
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use function clearstatcache;
 use function file_get_contents;
 use function file_put_contents;
@@ -15,7 +16,7 @@ class FileBoundCacheTest extends TestCase
 {
     public function testFileBoundCache()
     {
-        $cache = new ArrayCache();
+        $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');
 
         $tmpPath = sys_get_temp_dir().'/tmpCacheTest';
@@ -36,7 +37,7 @@ class FileBoundCacheTest extends TestCase
 
     public function testException()
     {
-        $cache = new ArrayCache();
+        $cache = new ArrayAdapter();
         $fileBoundCache = new FileBoundCache($cache, 'prefix');
 
         $this->expectException(FileAccessException::class);

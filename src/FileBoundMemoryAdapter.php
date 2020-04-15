@@ -10,9 +10,8 @@ namespace TheCodingMachine\CacheUtils;
 class FileBoundMemoryAdapter implements FileBoundCacheInterface
 {
     /** @var array<string, mixed> */
-    private $items;
-    /** @var FileBoundCacheInterface */
-    private $fileBoundCache;
+    private array $items;
+    private FileBoundCacheInterface $fileBoundCache;
 
     public function __construct(FileBoundCacheInterface $fileBoundCache)
     {

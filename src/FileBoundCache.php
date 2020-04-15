@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace TheCodingMachine\CacheUtils;
 
 use Psr\Cache\CacheItemPoolInterface;
-use Psr\SimpleCache\InvalidArgumentException;
+use Psr\Cache\InvalidArgumentException;
 use function filemtime;
 use function str_replace;
 
 class FileBoundCache implements FileBoundCacheInterface
 {
-    /** @var CacheInterface */
+    /** @var CacheItemPoolInterface */
     private $cache;
     /** @var string */
     private $cachePrefix;
